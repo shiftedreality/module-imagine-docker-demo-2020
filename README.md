@@ -121,7 +121,7 @@ docker-compose run deploy magento-command cache:clean
 
 * https://magento2.docker
 
-## Prepare and run MFTF tests
+## Prepare MFTF tests
 
 ### Prepare configs
 
