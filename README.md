@@ -4,6 +4,7 @@ This module is a part of Imagine'20 Cloud Docker MFTF Lab session.
 
 ## Terms
 * [Docker](https://www.docker.com): A software that performs operating-system-level virtualization
+* [Mutagen](https://mutagen.io): A real-time file synchronization and flexible network forwarding, extending the reach of your existing development tools to cloud-based containers and infrastructure
 
 # Related repositories
 
@@ -51,7 +52,7 @@ composer update
 ./bin/magento-docker ece-redeploy
 ```
 
-OR if Magento was previosuly compiled:
+**OR** if Magento was previosuly compiled:
 
 ```bash
 ./bin/magento-docker ece-deploy
@@ -73,7 +74,7 @@ docker-compose run deploy magento-command cache:clean
 
 * https://magento2.docker
 
-# Prepare and run MFTF test
+# Prepare and run MFTF tests
 
 ## Prepare configs
 
