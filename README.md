@@ -46,13 +46,19 @@ composer update
 ./mutagen.sh
 ```
 
+This step takes some time. To verify the status, run:
+
+```bash
+mutagen monitor
+```
+
 ## Deploy Magento
 
 ```bash
 ./bin/magento-docker ece-redeploy
 ```
 
-**OR** if Magento was previosuly compiled:
+**OR** if Magento was previosuly compiled and patched:
 
 ```bash
 ./bin/magento-docker ece-deploy
