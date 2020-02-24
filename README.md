@@ -17,7 +17,38 @@ This module is a part of Imagine'20 Cloud Docker MFTF Lab session.
 
 Follow instruction on [DevDocs](https://devdocs.magento.com/guides/v2.3/cloud/docker/docker-development.html)
 
-## Add dependencies
+## Production mode
+
+### Add dependencies
+
+```bash
+composer require "magento/magento2-functional-testing-framework" --no-update
+composer update
+```
+
+### Build docker-compose.yml
+
+```bash
+./vendor/bin/ece-docker build:compose --with-selenium
+```
+
+### Start containers
+
+```bash
+./bin/magento-docker up
+```
+
+### Deploy Magento
+
+```bash
+./bin/magento-docker ece-redeploy
+```
+
+### [Continue MFTF setup](#prepare-magento)
+
+## Developer mode
+
+### Add dependencies
 
 ```bash
 composer config repositories.demo vcs https://github.com/shiftedreality/module-imagine-docker-demo-2020
@@ -27,20 +58,19 @@ composer require "magento/magento2-functional-testing-framework" --no-update
 composer update
 ```
 
-
-## Build docker-compose.yml
+### Build docker-compose.yml
 
 ```bash
 ./vendor/bin/ece-docker build:compose --mode developer --with-selenium --sync-engine mutagen
 ```
 
-## Start containers
+### Start containers
 
 ```bash
 ./bin/magento-docker up
 ```
 
-## Start Mutagen
+### Start Mutagen
 
 ```bash
 ./mutagen.sh
@@ -52,7 +82,7 @@ This step takes some time. To verify the status, run:
 mutagen monitor
 ```
 
-## Deploy Magento
+### Deploy Magento
 
 ```bash
 ./bin/magento-docker ece-redeploy
@@ -64,10 +94,15 @@ mutagen monitor
 ./bin/magento-docker ece-deploy
 ```
 
-## Prepare Magento
+### Set Developer Mode
 
 ```bash
 docker-compose run deploy magento-command deploy:mode:set developer
+```
+
+## Prepare Magento
+
+```bash
 docker-compose run deploy magento-command config:set system/full_page_cache/caching_application 2 --lock-env
 docker-compose run deploy magento-command setup:config:set --http-cache-hosts=varnish -n
 docker-compose run deploy magento-command config:set admin/security/admin_account_sharing 1
@@ -80,9 +115,9 @@ docker-compose run deploy magento-command cache:clean
 
 * https://magento2.docker
 
-# Prepare and run MFTF tests
+## Prepare and run MFTF tests
 
-## Prepare configs
+### Prepare configs
 
 ```bash
 CONFIG="MAGENTO_BASE_URL=http://magento2.docker/
@@ -95,14 +130,14 @@ SELENIUM_HOST=selenium"
 docker-compose run deploy bash -c "echo \"$CONFIG\" > /app/dev/tests/acceptance/.env"
 ```
 
-## Build artifacts
+### Build artifacts
 
 ```bash
 docker-compose run test mftf-command build:project
 docker-compose run test mftf-command generate:tests --debug=none
 ```
 
-# Run Tests
+## Run Tests
 
 ```bash
 docker-compose run test mftf-command run:test AdminLoginTest --debug=none
