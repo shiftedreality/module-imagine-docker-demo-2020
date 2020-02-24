@@ -22,8 +22,7 @@ Follow instruction on [DevDocs](https://devdocs.magento.com/guides/v2.3/cloud/do
 ### Add dependencies
 
 ```bash
-composer require "magento/magento2-functional-testing-framework" --no-update
-composer update
+composer require "magento/magento2-functional-testing-framework" --no-update && composer update
 ```
 
 ### Build docker-compose.yml
