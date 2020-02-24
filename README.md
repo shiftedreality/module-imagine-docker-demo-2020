@@ -19,6 +19,8 @@ Follow instruction on [DevDocs](https://devdocs.magento.com/guides/v2.3/cloud/do
 
 ## Production mode
 
+<details><summary>Toggle</summary>
+
 ### Add dependencies
 
 ```bash
@@ -44,8 +46,11 @@ composer require "magento/magento2-functional-testing-framework" --no-update && 
 ```
 
 ### [Continue MFTF setup](#prepare-magento)
+</details>
 
 ## Developer mode
+
+<details><summary>Toggle</summary>
 
 ### Add dependencies
 
@@ -98,6 +103,8 @@ mutagen monitor
 ```bash
 docker-compose run deploy magento-command deploy:mode:set developer
 ```
+
+</details>
 
 ## Prepare Magento
 
