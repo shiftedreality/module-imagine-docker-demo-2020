@@ -88,7 +88,7 @@ SELENIUM_HOST=selenium"
 docker-compose run deploy bash -c "echo \"$CONFIG\" > /app/dev/tests/acceptance/.env"
 ```
 
-## Build artifacts.
+## Build artifacts
 
 ```bash
 docker-compose run test mftf-command build:project
