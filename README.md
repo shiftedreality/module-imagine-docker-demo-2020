@@ -147,5 +147,10 @@ docker-compose run test mftf-command generate:tests --debug=none
 
 ```bash
 docker-compose run test mftf-command run:test AdminLoginTest --debug=none
+```
+
+**IF** You added a Demo moudle in *Developer* mode:
+
+```bash
 docker-compose run test mftf-command run:test OpenStorefrontDemoPageTest --debug=non
 ```
