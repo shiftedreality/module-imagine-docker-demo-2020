@@ -109,12 +109,12 @@ docker-compose run deploy magento-command deploy:mode:set developer
 ## Prepare Magento
 
 ```bash
-docker-compose run deploy magento-command config:set system/full_page_cache/caching_application 2 --lock-env
-docker-compose run deploy magento-command setup:config:set --http-cache-hosts=varnish -n
-docker-compose run deploy magento-command config:set admin/security/admin_account_sharing 1
-docker-compose run deploy magento-command config:set admin/security/use_form_key 0
-docker-compose run deploy magento-command config:set web/secure/use_in_adminhtml 0
-docker-compose run deploy magento-command cache:clean
+docker-compose run test magento-command config:set system/full_page_cache/caching_application 2 --lock-env
+docker-compose run test magento-command setup:config:set --http-cache-hosts=varnish -n
+docker-compose run test magento-command config:set admin/security/admin_account_sharing 1
+docker-compose run test magento-command config:set admin/security/use_form_key 0
+docker-compose run test magento-command config:set web/secure/use_in_adminhtml 0
+docker-compose run test magento-command cache:clean
 ```
 
 ## Open Magento
@@ -133,7 +133,7 @@ MAGENTO_ADMIN_PASSWORD=123123q
 MODULE_WHITELIST=Magento_Framework,Magento_ConfigurableProductWishlist,Magento_ConfigurableProductCatalogSearch
 SELENIUM_HOST=selenium"
 
-docker-compose run deploy bash -c "echo \"$CONFIG\" > /app/dev/tests/acceptance/.env"
+docker-compose run test bash -c "echo \"$CONFIG\" > /app/dev/tests/acceptance/.env"
 ```
 
 ### Build artifacts
