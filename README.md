@@ -17,15 +17,15 @@ This module is a part of Imagine'20 Cloud Docker MFTF Lab session.
 
 Follow instruction on [DevDocs](https://devdocs.magento.com/guides/v2.3/cloud/docker/docker-development.html)
 
-## Production mode
-
-<details><summary>Toggle</summary>
-
-### Add dependencies
+**If** you don't have MFTF dependency added:
 
 ```bash
 composer require "magento/magento2-functional-testing-framework" --no-update && composer update
 ```
+
+## Production mode
+
+<details><summary>Toggle</summary>
 
 ### Build docker-compose.yml
 
@@ -58,8 +58,6 @@ composer require "magento/magento2-functional-testing-framework" --no-update && 
 composer config repositories.demo vcs https://github.com/shiftedreality/module-imagine-docker-demo-2020
 composer config minimum-stability dev
 composer require "magento/module-demo" --no-update
-composer require "magento/magento2-functional-testing-framework" --no-update
-composer update
 ```
 
 ### Build docker-compose.yml
