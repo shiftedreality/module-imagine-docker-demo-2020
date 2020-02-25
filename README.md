@@ -17,6 +17,8 @@ This module is a part of Imagine'20 Cloud Docker MFTF Lab session.
 
 Follow instruction on [DevDocs](https://devdocs.magento.com/guides/v2.3/cloud/docker/docker-development.html)
 
+### MFTF dependency
+
 **If** you don't have MFTF dependency added:
 
 ```bash
