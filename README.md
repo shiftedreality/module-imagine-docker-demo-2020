@@ -17,66 +17,113 @@ This module is a part of Imagine'20 Cloud Docker MFTF Lab session.
 
 Follow instruction on [DevDocs](https://devdocs.magento.com/guides/v2.3/cloud/docker/docker-development.html)
 
-## Add dependencies
+### MFTF dependency
+
+**If** you don't have MFTF dependency added:
 
 ```bash
-composer config repositories.demo vcs https://github.com/shiftedreality/module-imagine-docker-demo-2020
-composer config minimum-stability dev
-composer require "magento/module-demo" --no-update
-composer require "magento/magento2-functional-testing-framework" --no-update
-composer update
+composer require "magento/magento2-functional-testing-framework" --no-update && composer update
 ```
 
+## Production mode
 
-## Build docker-compose.yml
+<details><summary>Toggle</summary>
+
+### Build docker-compose.yml
 
 ```bash
-./vendor/bin/ece-docker build:compose --mode developer --with-selenium --sync-engine mutagen
+./vendor/bin/ece-docker build:compose --with-selenium
 ```
 
-## Start containers
+### Start containers
 
 ```bash
 ./bin/magento-docker up
 ```
 
-## Start Mutagen
-
-```bash
-./mutagen.sh
-```
-
-## Deploy Magento
+### Deploy Magento
 
 ```bash
 ./bin/magento-docker ece-redeploy
 ```
 
-**OR** if Magento was previosuly compiled:
+### [Continue MFTF setup](#prepare-magento)
+</details>
+
+## Developer mode
+
+<details><summary>Toggle</summary>
+
+### Add dependencies
+
+```bash
+composer config repositories.demo vcs https://github.com/shiftedreality/module-imagine-docker-demo-2020
+composer config minimum-stability dev
+composer require "magento/module-demo" --no-update
+```
+
+### Build docker-compose.yml
+
+```bash
+./vendor/bin/ece-docker build:compose --mode developer --with-selenium --sync-engine mutagen
+```
+
+### Start containers
+
+```bash
+./bin/magento-docker up
+```
+
+### Start Mutagen
+
+```bash
+./mutagen.sh
+```
+
+This step takes some time. To verify the status, run:
+
+```bash
+mutagen monitor
+```
+
+### Deploy Magento
+
+```bash
+./bin/magento-docker ece-redeploy
+```
+
+**OR** if Magento was previosuly compiled and patched:
 
 ```bash
 ./bin/magento-docker ece-deploy
 ```
 
-## Prepare Magento
+### Set Developer Mode
 
 ```bash
 docker-compose run deploy magento-command deploy:mode:set developer
-docker-compose run deploy magento-command config:set system/full_page_cache/caching_application 2 --lock-env
-docker-compose run deploy magento-command setup:config:set --http-cache-hosts=varnish -n
-docker-compose run deploy magento-command config:set admin/security/admin_account_sharing 1
-docker-compose run deploy magento-command config:set admin/security/use_form_key 0
-docker-compose run deploy magento-command config:set web/secure/use_in_adminhtml 0
-docker-compose run deploy magento-command cache:clean
+```
+
+</details>
+
+## Prepare Magento
+
+```bash
+docker-compose run test magento-command config:set system/full_page_cache/caching_application 2 --lock-env
+docker-compose run test magento-command setup:config:set --http-cache-hosts=varnish -n
+docker-compose run test magento-command config:set admin/security/admin_account_sharing 1
+docker-compose run test magento-command config:set admin/security/use_form_key 0
+docker-compose run test magento-command config:set web/secure/use_in_adminhtml 0
+docker-compose run test magento-command cache:clean
 ```
 
 ## Open Magento
 
 * https://magento2.docker
 
-# Prepare and run MFTF tests
+## Prepare MFTF tests
 
-## Prepare configs
+### Prepare configs
 
 ```bash
 CONFIG="MAGENTO_BASE_URL=http://magento2.docker/
@@ -86,19 +133,24 @@ MAGENTO_ADMIN_PASSWORD=123123q
 MODULE_WHITELIST=Magento_Framework,Magento_ConfigurableProductWishlist,Magento_ConfigurableProductCatalogSearch
 SELENIUM_HOST=selenium"
 
-docker-compose run deploy bash -c "echo \"$CONFIG\" > /app/dev/tests/acceptance/.env"
+docker-compose run test bash -c "echo \"$CONFIG\" > /app/dev/tests/acceptance/.env"
 ```
 
-## Build artifacts
+### Build artifacts
 
 ```bash
 docker-compose run test mftf-command build:project
 docker-compose run test mftf-command generate:tests --debug=none
 ```
 
-# Run Tests
+## Run Tests
 
 ```bash
 docker-compose run test mftf-command run:test AdminLoginTest --debug=none
+```
+
+**IF** you added a Demo moudle in *Developer* mode:
+
+```bash
 docker-compose run test mftf-command run:test OpenStorefrontDemoPageTest --debug=non
 ```
