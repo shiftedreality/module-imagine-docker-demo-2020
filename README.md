@@ -101,7 +101,7 @@ mutagen monitor
 ### Set Developer Mode
 
 ```bash
-docker-compose run deploy magento-command deploy:mode:set developer
+docker-compose run --rm deploy magento-command deploy:mode:set developer
 ```
 
 </details>
@@ -109,12 +109,12 @@ docker-compose run deploy magento-command deploy:mode:set developer
 ## Prepare Magento
 
 ```bash
-docker-compose run test magento-command config:set system/full_page_cache/caching_application 2 --lock-env
-docker-compose run test magento-command setup:config:set --http-cache-hosts=varnish -n
-docker-compose run test magento-command config:set admin/security/admin_account_sharing 1
-docker-compose run test magento-command config:set admin/security/use_form_key 0
-docker-compose run test magento-command config:set web/secure/use_in_adminhtml 0
-docker-compose run test magento-command cache:clean
+docker-compose run --rm test magento-command config:set system/full_page_cache/caching_application 2 --lock-env
+docker-compose run --rm test magento-command setup:config:set --http-cache-hosts=varnish -n
+docker-compose run --rm test magento-command config:set admin/security/admin_account_sharing 1
+docker-compose run --rm test magento-command config:set admin/security/use_form_key 0
+docker-compose run --rm test magento-command config:set web/secure/use_in_adminhtml 0
+docker-compose run --rm test magento-command cache:clean
 ```
 
 ## Open Magento
@@ -133,7 +133,7 @@ MAGENTO_ADMIN_PASSWORD=123123q
 MODULE_WHITELIST=Magento_Framework,Magento_ConfigurableProductWishlist,Magento_ConfigurableProductCatalogSearch
 SELENIUM_HOST=selenium"
 
-docker-compose run test bash -c "echo \"$CONFIG\" > /app/dev/tests/acceptance/.env"
+docker-compose run --rm test bash -c "echo \"$CONFIG\" > /app/dev/tests/acceptance/.env"
 ```
 
 ### Build artifacts
@@ -146,11 +146,11 @@ docker-compose run --rm test mftf-command generate:tests --debug=none
 ## Run Tests
 
 ```bash
-docker-compose run test mftf-command run:test AdminLoginTest --debug=none
+docker-compose run --rm test mftf-command run:test AdminLoginTest --debug=none
 ```
 
 **IF** you added a Demo moudle in *Developer* mode:
 
 ```bash
-docker-compose run test mftf-command run:test OpenStorefrontDemoPageTest --debug=non
+docker-compose run --rm test mftf-command run:test OpenStorefrontDemoPageTest --debug=non
 ```
