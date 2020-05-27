@@ -139,8 +139,8 @@ docker-compose run test bash -c "echo \"$CONFIG\" > /app/dev/tests/acceptance/.e
 ### Build artifacts
 
 ```bash
-docker-compose run test mftf-command build:project
-docker-compose run test mftf-command generate:tests --debug=none
+docker-compose run --rm test mftf-command build:project
+docker-compose run --rm test mftf-command generate:tests --debug=none
 ```
 
 ## Run Tests
